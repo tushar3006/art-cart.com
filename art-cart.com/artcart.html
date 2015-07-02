@@ -1,0 +1,126 @@
+
+<html ng-app=artcart lang="en">
+<head>
+<script src=angular.min.js></script>
+<script src=artcart.js></script>
+<script src=jquery.min.js></script>
+ <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="application.css" />
+
+</head>
+  <header>
+      <h1 class="text-center"><span >ART CART LEGENDS</span></h1>
+	   
+   
+    
+	</header>
+<body ng-controller="display as store" class="text-center" >
+   
+<div><h2 class="text-center"  ><span id=changer style="color:#6699FF ;font-family:'Comic Sans MS'">  Art </span>  </h2></div>   
+   <script>
+	  var i=["Art","Trend","Expressions"];
+	  var c=0;
+	    
+	  var x=setInterval(function()
+	  {
+	  if(c<(i.length))
+	  {
+	  
+	  document.getElementById("changer").innerHTML=i[c];
+		c++;	
+	}
+	  else
+	  {
+	  c=0;
+	  }
+	  },1300);
+	  
+	  </script>
+<div class=container>
+<div class="list-group" >
+<div  class="list-group-item" ng-repeat="product in store.products">
+<strong>{{product.name}} {{product.price|currency}} </strong>
+<div class="img-wrap">
+<img  ng-src={{product.images[0].thumb}}/>
+</div>
+<div   class="img-thumbnails clearfix">
+<img ng-show="product.images[1].canView" ng-src={{product.images[1].full}}/>
+</div>
+
+<section ng-controller="panelcontroller as panel" class="row-centered">
+<br>
+<div class="well well-lg" >
+<ul class="nav nav-pills ">
+
+<li style="margin-left:150px;" ng-class="{active:panel.isSelected(1)}"><a href ng-click="panel.selectTab(1)">Description</a></li>
+<li  ng-class="{active:panel.isSelected(2)}"><a href ng-click="panel.selectTab(2);">Reviews</a></li>
+<li  ng-class="{active:panel.isSelected(3)}"><a href ng-click="panel.selectTab(3);">About Artist</a></li>
+</ul>
+</div>
+<div class="jumbotron">
+<div class=panel ng-show=panel.isSelected(1)>
+<br>
+<h4>Description</h4>
+{{product.desc}}
+</div>
+<div ng-show=panel.isSelected(2)>
+
+<h4>Reviews</h4>
+<div class=panel ng-repeat="review in product.reviews">
+<br> 
+<blockquote>{{review.stars}} Stars</blockquote>
+{{review.description}}
+<cite class="clearfix">--{{review.author}}    {{review.createdOn|date}}</cite>
+</div>
+<h4>Submit a review:</h4>
+<form name="reviewform" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewform.$valid && reviewCtrl.addReview(product)" ng-data="review in product.reviews" novalidate >
+<blockquote><strong>{{reviewCtrl.review.stars}} Stars</strong>
+
+{{reviewCtrl.review.description}}</blockquote>
+<cite class="clearfix">--{{reviewCtrl.review.author}}</cite>
+<fieldset class="form-group">
+                <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
+                  <option value="">Rate the Product</option>
+                </select>
+              </fieldset>
+              <fieldset class="form-group">
+                <textarea ng-model="reviewCtrl.review.description" class="form-control" placeholder="Write a short review of the product..." title="Review" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email"  required/>
+              </fieldset>
+			   
+              <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+              </fieldset>	
+			
+</form>
+</div>
+<div class=panel ng-show=panel.isSelected(3)>
+<cite class="clearfix">{{product.painter}}</cite>
+{{product.painterdesc}}
+</div>
+
+</section>
+
+</div>
+
+<button ng-show="product.canView" onclick="max()"> add to cart	 </button>
+</div>
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+	

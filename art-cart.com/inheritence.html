@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+
+
+function person(first, last, age, eye) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eye;
+   
+
+}
+
+if (typeof Object.beget !== 'function') {
+Object.beget = function (o) {
+var F = function () {};
+F.prototype = o;
+return new F();
+};
+}
+
+
+var constructor=function(o){
+var that={};
+that.get_name=function(){return o.firstName;};
+that.says=function(){return "bbb";};
+return that;
+};
+
+
+
+
+var obj=Object.beget(person);
+var obj2=constructor(obj);
+obj.set_firstname=function(first){this.firstName=first; };
+obj.set_firstname("abc");
+document.getElementById("demo").innerHTML ="My father is " + obj2.says();
+</script>
+
+</body>
+</html>

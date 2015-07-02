@@ -1,0 +1,19 @@
+.ng-invalid.ng-dirty{
+  border-color:red;
+}    
+.ng-valid.ng-dirty{
+  border-color:green;
+}    
+.container{
+width:50%;
+}
+.center{
+margin-left:50px;
+}
+.well{
+padding:20 20 20 20;
+}
+body{
+background:linear-gradient(#F0F0FF,#141F33);
+
+}
